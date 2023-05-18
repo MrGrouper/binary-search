@@ -24,11 +24,14 @@ class Tree{
     find(val){
         this.root = findRec(this.root, val);
     }
+    levelOrder(){
+        return levelOrderQ(this.root);
+    }
 
 }
 
 let tree = new Tree(array)
-console.log(tree.root)
+
 
 function buildTree(array){
     
@@ -148,18 +151,37 @@ function findRec(root, val){
     return null;
     
 }
-console.log(tree.root)
-function levelOrderRec(root, fn){
+
+function levelOrderQ(root){
     if(!root){
     return [];
     }
 
     const result = [];
+    var q = [];
+    q.push(root);
+
+    while (q.length != 0){
+        var arr = [];
+        
+        var node = q.shift();
+        arr.push(node.val)
+        if(node.left) {
+            q.push(node.left);
+            };
+            if(node.right){
+                q.push(node.right)
+            }
+        
+        result.push(arr);
+    }
+    return result;
+    
 }
 
-function levelOrderIt(root, fn){
+// function levelOrderIt(root, fn){
 
-}
+// }
 
 
 
@@ -181,7 +203,8 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   tree.deleteVal(4);
   prettyPrint(tree.root, prefix = '', isLeft = true);
 
-console.log([tree.root])
+  console.log(tree.levelOrder());
+
 
   
   
