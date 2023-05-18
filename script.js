@@ -1,5 +1,7 @@
 
 let array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+var height = -1;
+var dist = -1;
 
 
 class Node{
@@ -16,16 +18,29 @@ class Tree{
         this.root = buildTree(array);
     }
     insert(val){
-        this.root = insertRec(this.root, val);
+        return insertRec(this.root, val);
     }
     deleteVal(val){
-        this.root = deleteRec(this.root, val);
+        return deleteRec(this.root, val);
     }
     find(val){
-        this.root = findRec(this.root, val);
+        return findRec(this.root, val);
     }
     levelOrder(){
         return levelOrderQ(this.root);
+    }
+    preOrder(){
+        return preOrderRec(this.root);
+    }
+    inOrder(){
+        return inOrderRec(this.root);
+    }
+    postOrder(){
+        return postOrderRec(this.root);
+    }
+    
+    depth(val){
+        return depthHelper(this.root, val)
     }
 
 }
@@ -98,7 +113,7 @@ function insertRec(root, val){
     if(val < root.val){
         root.left = insertRec(root.left, val);
     }
-    else if(val > root.right, val){
+    else if(val > root.val){
         root.right = insertRec(root.right, val);
     }
     return root
@@ -137,18 +152,19 @@ function minValue(root){
 }
 
 function findRec(root, val){
-    if(root.val == val){
-        console.log(root)
-        return root;
+    if(!root){
+        return null;
     }
+    
     if(root.val>val){
-        root.left = findRec(root.left, val);
+        return findRec(root.left, val);
     }
     else if(root.val<val){
-        root.right = findRec(root.right, val);
+        return findRec(root.right, val);
     }
-  
-    return null;
+    else{
+    return root;
+    }
     
 }
 
@@ -179,11 +195,120 @@ function levelOrderQ(root){
     
 }
 
-// function levelOrderIt(root, fn){
+function preOrderRec(root){
+    function preOrderHelper(root){
+    
+    if (!root){
+        return;
+    }
+    
+    arr.push(root.val);
+    preOrderHelper(root.left);
+    preOrderHelper(root.right);
+    
+    return arr
 
-// }
+}
+var arr = [];
+preOrderHelper(root);
+return arr;
+}
+
+function inOrderRec(root){
+    function inOrderHelper(root){
+    
+    if (!root){
+        return;
+    }
+    
+    inOrderHelper(root.left);
+    arr.push(root.val);
+    inOrderHelper(root.right);
+    
+    return arr
+
+}
+var arr = [];
+inOrderHelper(root);
+return arr;
+}
+
+function postOrderRec(root){
+    function postOrderHelper(root){
+    
+    if (!root){
+        return;
+    }
+    
+    postOrderHelper(root.left);
+    postOrderHelper(root.right);
+    arr.push(root.val);
+    
+    return arr
+
+}
+var arr = [];
+postOrderHelper(root);
+return arr;
+}
 
 
+function heightHelper(node) {
+    if (!node) {
+        return 0;
+    }
+    
+    var leftHeight = heightHelper(node.left);
+    var rightHeight = heightHelper(node.right);
+    
+    return Math.max(leftHeight, rightHeight) + 1;
+}
+
+function depthHelper(root, val){
+    if(!root){
+        return -1;
+    }
+    if(
+        root.val == val ||
+    
+    (dist = depthHelper(root.left, val)) >= 0 ||
+
+    (dist = depthHelper(root.right, val)) >= 0
+    )
+    { 
+        return dist+1
+    }
+    return dist;
+}
+
+
+
+function isBalanced(root){
+    if (!root){
+        return true;
+    }
+    
+    let lh = heightHelper(root.left);
+    let rh = heightHelper(root.right);
+    
+    if(Math.abs(lh-rh) <=1 &&
+      isBalanced(root.left) && 
+      isBalanced(root.right)){
+        return true
+      }
+    
+      return false
+}
+function balance(tree){
+    arr = inOrderRec(tree.root);
+    return buildTree(array)
+}
+
+
+new Node(120)
+new Node(121)
+console.log(isBalanced(tree))
+console.log(balance(tree))
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) {
@@ -198,13 +323,13 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
   }
   
-  tree.insert(59);
-  prettyPrint(tree.root, prefix = '', isLeft = true);
-  tree.deleteVal(4);
+
   prettyPrint(tree.root, prefix = '', isLeft = true);
 
-  console.log(tree.levelOrder());
 
+ 
+
+ 
 
   
   
