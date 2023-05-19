@@ -42,6 +42,9 @@ class Tree{
     depth(val){
         return depthHelper(this.root, val)
     }
+    balance(){
+    return balanceRec(this.root)
+    }
 
 }
 
@@ -299,16 +302,44 @@ function isBalanced(root){
     
       return false
 }
-function balance(tree){
-    arr = inOrderRec(tree.root);
-    return buildTree(array)
+function balanceRec(root){
+    arr = inOrderRec(root);
+    return new Tree(arr)
+}
+// function to add unbalanced nodes to right edge of tree 
+function addNodeRight(root, val){
+   
+   if(!root){
+    return;
+}
+addNodeRight(root.right, val);
+console.log(root.right)
+   if(!root.right){
+    newNode = new Node(val)
+    return root.right = newNode;
+   }
+
 }
 
 
-new Node(120)
-new Node(121)
-console.log(isBalanced(tree))
-console.log(balance(tree))
+// addNodeRight(tree.root, 114);
+// addNodeRight(tree.root, 115);
+// addNodeRight(tree.root, 116);
+// addNodeRight(tree.root, 117);
+
+tree.insert(113);
+tree.insert(114);
+tree.insert(115);
+tree.insert(116);
+tree.insert(117);
+tree.insert(118);
+
+
+console.log(isBalanced(tree.root))
+tree = tree.balance()
+
+console.log(tree)
+
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
     if (node === null) {
@@ -323,6 +354,10 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     }
   }
   
+
+  prettyPrint(tree.root, prefix = '', isLeft = true);
+
+ 
 
   prettyPrint(tree.root, prefix = '', isLeft = true);
 
