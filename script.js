@@ -54,7 +54,6 @@ let tree = new Tree(array)
 function buildTree(array){
     
     const uniqSorted = mergeSort(makeUniq(array))
-    console.log(uniqSorted)
     const len = uniqSorted.length 
     return buildTreeHelper(uniqSorted, 0, len-1)
 
@@ -322,23 +321,8 @@ console.log(root.right)
 }
 
 
-// addNodeRight(tree.root, 114);
-// addNodeRight(tree.root, 115);
-// addNodeRight(tree.root, 116);
-// addNodeRight(tree.root, 117);
 
-tree.insert(113);
-tree.insert(114);
-tree.insert(115);
-tree.insert(116);
-tree.insert(117);
-tree.insert(118);
-
-
-console.log(isBalanced(tree.root))
-tree = tree.balance()
-
-console.log(tree)
+//TESTING
 
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -353,13 +337,48 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
       prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
   }
+
+  console.log(prettyPrint(tree.root, prefix = '', isLeft = true))
+
+//Confirm that the tree is balanced by calling isBalanced
+alert(`isBalanced = ${isBalanced(tree.root)}`)
+
+//Print out all elements in level, pre, post, and in order
+alert(`level order: ${tree.levelOrder()}`)
+alert(`pre order: ${tree.preOrder()}`)
+alert(`post order: ${tree.postOrder()}`)
+alert(`in order: ${tree.inOrder()}`)
+
+//Unbalance the tree by adding several numbers > 100
+tree.insert(113);
+tree.insert(114);
+tree.insert(115);
+tree.insert(116);
+tree.insert(117);
+tree.insert(118);
+
+console.log(prettyPrint(tree.root, prefix = '', isLeft = true))
+
+
+//Confirm that the tree is unbalanced by calling isBalanced
+
+alert(`after adding values isBalanced = ${isBalanced(tree.root)}`)
+
+//Balance the tree by calling rebalance
+
+tree = tree.balance()
+
+//Confirm that the tree is balanced by calling isBalanced
+alert(`after balancing, isBalanced = ${isBalanced(tree.root)}`)
+
+console.log(prettyPrint(tree.root, prefix = '', isLeft = true))
+
+//Print out all elements in level, pre, post, and in order
+alert(`level order: ${tree.levelOrder()}`)
+alert(`pre order: ${tree.preOrder()}`)
+alert(`post order: ${tree.postOrder()}`)
+alert(`in order: ${tree.inOrder()}`)
   
-
-  prettyPrint(tree.root, prefix = '', isLeft = true);
-
- 
-
-  prettyPrint(tree.root, prefix = '', isLeft = true);
 
 
  
